@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAYE BUSINESS - Boutique High-Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-color: #f8f9fa;
+            --dark-color: #202124;
+            --background-light: #ffffff;
+            --text-color: #3c4043;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-light);
+            color: var(--text-color);
+            padding-top: 80px;
+        }
+        
+        header {
+            background-color: var(--background-light);
+            color: var(--dark-color);
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 0 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+            position: relative;
+        }
+        
+        nav a {
+            transition: color 0.3s;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        #titre {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        #titre span {
+            color: var(--dark-color);
+        }
+        
+        .hero {
+            width: 100%;
+            height: 500px;
+            background: url('nav.jpg') center/cover no-repeat;
+            color: var(--dark-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-bottom: 50px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #3367d6;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.3rem;
+            color: var(--dark-color);
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .product-info {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            height: 50px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .product-price del {
+            color: #999;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .add-to-cart {
+            flex-grow: 1;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #3367d6;
+        }
+        
+        .wishlist {
+            width: 40px;
+            height: 40px;
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wishlist:hover {
+            background-color: #ffdede;
+            color: var(--accent-color);
+        }
+        
+        .features {
+            background-color: #f8f9fa;
+            padding: 80px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .feature-item {
+            padding: 30px 20px;
+            transition: transform 0.3s;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .feature-desc {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .newsletter {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .newsletter h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-btn {
+            padding: 15px 30px;
+            background-color: var(--dark-color);
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background-color: #000;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Catégories de produits */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .category-tab {
+            padding: 8px 20px;
+            margin: 0 10px 10px;
+            background-color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .category-tab.active, .category-tab:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav li {
+                margin-left: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 15px;
+            }
+            
+            body {
+                padding-top: 0;
+            }
+            
+            #titre {
+                margin-bottom: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 10px 10px;
+            }
+            
+            .hero {
+                height: 400px;
+                margin-top: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .wishlist {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .product-card, .feature-item {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+        .product-card:nth-child(7) { animation-delay: 0.7s; }
+        .product-card:nth-child(8) { animation-delay: 0.8s; }
+        
+        .feature-item:nth-child(1) { animation-delay: 0.1s; }
+        .feature-item:nth-child(2) { animation-delay: 0.2s; }
+        .feature-item:nth-child(3) { animation-delay: 0.3s; }
+        .feature-item:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="titre">GAYE <span>BUSINESS</span></h1>
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="#products"><i class="fas fa-shopping-bag"></i> Produits</a></li>
+                <li><a href="#features"><i class="fas fa-star"></i> Services</a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i> À-propos</a></li>
+                <li><a href="#"><i class="fas fa-phone"></i> Contact</a></li>
+                <li><a href="#"><i class="fas fa-shopping-cart"></i> Panier</a></li>
+            </ul>
+        </nav>
+    </header>   
+    
+    <section class="hero">
+        <h1>Bienvenue sur GAYE BUSINESS</h1>
+        <p>Découvrez notre sélection premium de produits high-tech aux meilleurs prix du marché.</p>
+        <div>
+            <a href="#products" class="btn">Explorer les produits</a>
+            <a href="#" class="btn btn-outline">Découvrir nos promotions</a>
+        </div>
+    </section>
+    
+    <div class="container" id="products">
+        <div class="section-title">
+            <h2>Nos Produits Phares</h2>
+        </div>
+        
+        <div class="category-tabs">
+            <div class="category-tab active">Tous</div>
+            <div class="category-tab">Smartphones</div>
+            <div class="category-tab">Ordinateurs</div>
+            <div class="category-tab">Accessoires</div>
+        </div>
+        
+        <div class="products-grid">
+            <!-- Casque -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro5.avif" alt="Casque audio haut de gamme">
+                    <span class="product-badge">Nouveau</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Casque Audio Bluetooth Premium</h3>
+                    <div class="product-price">45.000 F</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AirPods -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro6.avif" alt="AirPods Pro">
+                    <span class="product-badge">Promo</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">AirPods Pro 2ème Génération</h3>
+                    <div class="product-price">75.000 F <del>85.000 F</del></div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- iPhone 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro7.avif" alt="iPhone 13 Pro">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">iPhone 13 Pro 128GB</h3>
+                    <div class="product-price">650.000 F</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- iPhone 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro8.avif" alt="iPhone 12">
+                    <span class="product-badge">Best-seller</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">iPhone 12 64GB</h3>
+                    <div class="product-price">500.000 F <del>550.000 F</del></div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- iPhone 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro9.avif" alt="iPhone 14">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">iPhone 14 Pro Max 256GB</h3>
+                    <div class="product-price">850.000 F</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- iPhone 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro10.avif" alt="iPhone 11">
+                    <span class="product-badge">Économisez 15%</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">iPhone 11 128GB</h3>
+                    <div class="product-price">400.000 F <del>470.000 F</del></div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Samsung 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro11.avif" alt="Samsung Galaxy S22">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Samsung Galaxy S22 Ultra</h3>
+                    <div class="product-price">700.000 F</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Samsung 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro12.avif" alt="Samsung Galaxy Z Fold">
+                    <span class="product-badge">Nouveau</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Samsung Galaxy Z Fold 4</h3>
+                    <div class="product-price">900.000 F</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Samsung 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro13.avif" alt="Samsung Galaxy Note">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Samsung Galaxy Note 20 Ultra</h3>
+                    <div class="product-price">600.000 F <del>650.000 F</del></div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ordinateur 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro14.avif" alt="Ordinateur portable">
+                    <span class="product-badge">Promo</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">PC Portable HP EliteBook</h3>
+                    <div class="product-price">450.000 F <del>500.000 F</del></div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ordinateur 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro15.avif" alt="Ordinateur portable gaming">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">PC Gaming ASUS ROG</h3>
+                    <div class="product-price">750.000 F</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ordinateur 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro16.jpg" alt="Ensemble ordinateur">
+                    <span class="product-badge">Économisez 10%</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Macbo</h3>
+                    <div class="product-price">650.000 F <del>720.000 F</del></div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ensemble ordinateur -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pro17.avif" alt="Ensemble ordinateur">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ensemble PC Bureau Complet</h3>
+                    <div class="product-price">550.000 F</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">Ajouter au panier</button>
+                        <button class="wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pourquoi Nous Choisir ?</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 class="feature-title">Livraison Rapide</h3>
+                    <p class="feature-desc">Livraison express sous 24h dans toute la région. Commandez aujourd'hui, recevez demain !</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Paiement Sécurisé</h3>
+                    <p class="feature-desc">Transactions 100% sécurisées avec cryptage SSL. Vos données sont protégées.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">Support 24/7</h3>
+                    <p class="feature-desc">Notre équipe est disponible 24h/24 pour répondre à toutes vos questions.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h3 class="feature-title">Retour Facile</h3>
+                    <p class="feature-desc">Insatisfait ? Retournez votre produit sous 14 jours pour un remboursement complet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="newsletter">
+        <div class="container">
+            <h3>Abonnez-vous à notre newsletter</h3>
+            <p>Recevez les dernières offres et nouveautés directement dans votre boîte mail.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Votre adresse email" class="newsletter-input" required>
+                <button type="submit" class="newsletter-btn">S'abonner</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>GAYE BUSINESS</h4>
+                    <p>Votre boutique en ligne préférée pour les produits high-tech de qualité à des prix imbattables.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Liens Rapides</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#products">Produits</a></li>
+                        <li><a href="#features">Services</a></li>
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Catégories</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Smartphones</a></li>
+                        <li><a href="#">Ordinateurs</a></li>
+                        <li><a href="#">Accessoires</a></li>
+                        <li><a href="#">Promotions</a></li>
+                        <li><a href="#">Nouveautés</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Dakar, Sénégal</li>
+                        <li><i class="fas fa-phone"></i> +221 77 123 45 67</li>
+                        <li><i class="fas fa-envelope"></i> contact@gayebusiness.com</li>
+                        <li><i class="fas fa-clock"></i> Lun-Sam: 8h-20h</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 GAYE BUSINESS. Tous droits réservés. | Conçu avec <i class="fas fa-heart" style="color: #ea4335;"></i> pour vous</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
